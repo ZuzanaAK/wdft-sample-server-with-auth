@@ -4,6 +4,7 @@ const router = express.Router()
 let TodoModel = require('../models/Todo.model')
 const { isLoggedIn } = require('../helpers/auth-helper'); // to check if user is loggedIn
 
+
 router.get('/todos', (req, res) => {
      TodoModel.find()
           .then((todos) => {
@@ -17,7 +18,7 @@ router.get('/todos', (req, res) => {
      })         
 })
 
-router.post('/create', (req, res) => {  
+router.post('/create', isLoggedIn,  (req, res) => {  
     const {name, description, completed, image} = req.body;
     console.log(req.body)
     TodoModel.create({name, description, completed, image})
@@ -32,7 +33,7 @@ router.post('/create', (req, res) => {
           })  
 })
 
-router.get('/todos/:myId', (req, res) => {
+router.get('/todos/:myId', isLoggedIn, (req, res) => {
     TodoModel.findById(req.params.myId)
      .then((response) => {
           res.status(200).json(response)
@@ -45,7 +46,7 @@ router.get('/todos/:myId', (req, res) => {
      }) 
 })
 
-router.delete('/todos/:id', (req, res) => {
+router.delete('/todos/:id', isLoggedIn, (req, res) => {
     TodoModel.findByIdAndDelete(req.params.id)
           .then((response) => {
                res.status(200).json(response)
@@ -58,7 +59,7 @@ router.delete('/todos/:id', (req, res) => {
           })  
 })
 
-router.patch('/todos/:id', (req, res) => {
+router.patch('/todos/:id', isLoggedIn, (req, res) => {
     let id = req.params.id
     const {name, description, completed} = req.body;
     TodoModel.findByIdAndUpdate(id, {$set: {name: name, description: description, completed: completed}})
