@@ -8,7 +8,15 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 require("dotenv").config();
 
+//A library that helps us log the requests in the console
+const logger = require('morgan');
+app.use(logger('dev'));
 
+const cors = require('cors')
+app.use(cors({
+  credentials: true, 
+  origin: 'http://localhost:3000'
+}))
 
 app.use(
   session({
@@ -29,15 +37,7 @@ app.use(
 
 
 
-//A library that helps us log the requests in the console
-const logger = require('morgan');
-app.use(logger('dev'));
 
-const cors = require('cors')
-app.use(cors({
-  credentials: true, 
-  origin: ['http://localhost:3000']
-}))
 
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());

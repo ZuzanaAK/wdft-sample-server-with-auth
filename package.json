@@ -36,6 +36,6 @@
     "multer-storage-cloudinary": "^4.0.0",
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
-    "stripe": "^8.89.0"
+    "stripe": "^8.135.0"
   }
 }
